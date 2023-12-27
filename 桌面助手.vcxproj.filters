@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\功能模块">
+      <UniqueIdentifier>{f5be85a0-9d8a-411e-b51a-ea6adbcb2495}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\功能模块\记账本">
+      <UniqueIdentifier>{f9561389-ccbb-4351-bacd-f7451cfb6093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\功能模块\课程备忘录">
+      <UniqueIdentifier>{131f607a-915f-4218-8d2a-1f6e9c7d1062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\功能模块\密码记录器">
+      <UniqueIdentifier>{07460a86-4b71-4c48-a7be-4cac7e7ab793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\功能模块\学习记录器">
+      <UniqueIdentifier>{2c766d79-5d1d-436c-ba88-0f3c42758f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\其他">
+      <UniqueIdentifier>{d95b51af-16a4-4d7a-b95d-3606fcd917bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\功能模块">
+      <UniqueIdentifier>{2a7e9f7e-57b1-44e4-8562-9c9f76612a1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\功能模块\记账本">
+      <UniqueIdentifier>{17c53e24-913b-4e75-a605-2a66c49d9045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\功能模块\课程备忘录">
+      <UniqueIdentifier>{7334e7c0-329c-47d3-a439-4389018a5a2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\功能模块\密码记录器">
+      <UniqueIdentifier>{ad4b20ff-c9e8-4bdd-8ec5-7d5a9e1ec686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\功能模块\学习记录器">
+      <UniqueIdentifier>{7ae1baa3-f356-4e98-a422-bdab1ece71c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\其他">
+      <UniqueIdentifier>{8ad9efe3-586b-4cbe-8044-775db74ed309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Easyx基本类">
+      <UniqueIdentifier>{40df34f9-4bba-4b5f-a701-7ea4d9337ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Easyx基本类">
+      <UniqueIdentifier>{13294550-f999-4e37-a825-b1f757ce5c2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\功能模块\生活轨迹记录器">
+      <UniqueIdentifier>{cfa755c3-b94e-41a5-8970-c6b98b84258b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\功能模块\生活轨迹记录器">
+      <UniqueIdentifier>{274b3b86-6e26-41ff-b7ff-c8c4c5820efe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Account.cpp">
+      <Filter>源文件\功能模块\记账本</Filter>
+    </ClCompile>
+    <ClCompile Include="AccountBookManager.cpp">
+      <Filter>源文件\功能模块\记账本</Filter>
+    </ClCompile>
+    <ClCompile Include="PasswordRecorderManager.cpp">
+      <Filter>源文件\功能模块\密码记录器</Filter>
+    </ClCompile>
+    <ClCompile Include="StudyRecoder.cpp">
+      <Filter>源文件\功能模块\学习记录器</Filter>
+    </ClCompile>
+    <ClCompile Include="StudyRecorderManager.cpp">
+      <Filter>源文件\功能模块\学习记录器</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuManager.cpp">
+      <Filter>源文件\其他</Filter>
+    </ClCompile>
+    <ClCompile Include="MyWindow.cpp">
+      <Filter>源文件\Easyx基本类</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicWidget.cpp">
+      <Filter>源文件\Easyx基本类</Filter>
+    </ClCompile>
+    <ClCompile Include="PushButton.cpp">
+      <Filter>源文件\Easyx基本类</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoManager.cpp">
+      <Filter>源文件\功能模块\课程备忘录</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>源文件\功能模块\课程备忘录</Filter>
+    </ClCompile>
+    <ClCompile Include="Deadline.cpp">
+      <Filter>源文件\功能模块\课程备忘录</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DailyRecorder.cpp">
+      <Filter>源文件\功能模块\生活轨迹记录器</Filter>
+    </ClCompile>
+    <ClCompile Include="DailyRecorderManager.cpp">
+      <Filter>源文件\功能模块\生活轨迹记录器</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemTime.cpp">
+      <Filter>源文件\其他</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Account.h">
+      <Filter>头文件\功能模块\记账本</Filter>
+    </ClInclude>
+    <ClInclude Include="AccountBookManager.h">
+      <Filter>头文件\功能模块\记账本</Filter>
+    </ClInclude>
+    <ClInclude Include="PasswordRecorderManager.h">
+      <Filter>头文件\功能模块\密码记录器</Filter>
+    </ClInclude>
+    <ClInclude Include="StudyRecorder.h">
+      <Filter>头文件\功能模块\学习记录器</Filter>
+    </ClInclude>
+    <ClInclude Include="StudyRecorderManager.h">
+      <Filter>头文件\功能模块\学习记录器</Filter>
+    </ClInclude>
+    <ClInclude Include="header.h">
+      <Filter>头文件\其他</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuManager.h">
+      <Filter>头文件\其他</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintTemplate.hpp">
+      <Filter>头文件\其他</Filter>
+    </ClInclude>
+    <ClInclude Include="MyWindow.h">
+      <Filter>头文件\Easyx基本类</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicWidget.h">
+      <Filter>头文件\Easyx基本类</Filter>
+    </ClInclude>
+    <ClInclude Include="PushButton.h">
+      <Filter>头文件\Easyx基本类</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoManager.h">
+      <Filter>头文件\功能模块\课程备忘录</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>头文件\功能模块\课程备忘录</Filter>
+    </ClInclude>
+    <ClInclude Include="Deadline.h">
+      <Filter>头文件\功能模块\课程备忘录</Filter>
+    </ClInclude>
+    <ClInclude Include="DailyRecorder.h">
+      <Filter>头文件\功能模块\生活轨迹记录器</Filter>
+    </ClInclude>
+    <ClInclude Include="DailyRecorderManager.h">
+      <Filter>头文件\功能模块\生活轨迹记录器</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemTime.h">
+      <Filter>头文件\其他</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="源1.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
