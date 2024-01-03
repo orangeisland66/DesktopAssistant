@@ -13,8 +13,8 @@ int main()
 	while (1)
 	{
 		ShowMainMenu();
-		int choice;
-		cin >> choice;
+		int choice=0;
+		while ((choice = cinCheck<int>(3, 6)) == 0)continue;
 		switch (choice)
 		{
 			

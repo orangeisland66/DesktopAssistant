@@ -1,8 +1,8 @@
 #include "PushButton.h"
-PushButton::PushButton(const string& text, int x, int y, int w, int h):
-	BasicWidget(x,y,w,h),m_text(text)
-{
-	
+
+PushButton::PushButton(const string& text, COLORREF color, int x, int y, int w, int h) :
+	BasicWidget(x,y,w,h),m_text(text),save(color),color1(color)
+{	
 }
 
 void PushButton::show(int mode)
@@ -83,9 +83,9 @@ void PushButton::eventLoop(const ExMessage& msg,int mode)
 	}
 	else
 	{
-		COLORREF temp2 = color1;
-		color1 = LIGHTBLUE;
-		if (temp2 != color1)show(mode);
+		COLORREF temp = color1;
+		color1 = save;
+		if (temp != color1)show(mode);
 	}
 	
 }

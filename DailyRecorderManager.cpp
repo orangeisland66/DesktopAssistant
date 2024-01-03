@@ -5,26 +5,24 @@
 DailyRecorderManager::DailyRecorderManager()
 	:background(new IMAGE)
 {
-	MyWindow w;
-	SystemTime t;
 	fileInit();
-	w = MyWindow(640, 680, EW_SHOWCONSOLE | EX_NOCLOSE);
+	MyWindow::MyWindow(640, 680, EW_SHOWCONSOLE | EX_NOCLOSE);
 	LOGFONT f;
 	gettextstyle(&f);						// 获取当前字体设置
 	f.lfQuality = ANTIALIASED_QUALITY;		// 设置输出效果为抗锯齿  
 	settextstyle(&f);						// 设置字体样式
-	w.setWindowTitle("小红书");
+	MyWindow::setWindowTitle("小红书");
 	setbkmode(TRANSPARENT);
 	setbkcolor(RGB(220, 220, 220));
-	::loadimage(background, "./DailyRecorderImages/backgroundImage/background.jpg", background->getwidth(), background->getheight());//background
-	//::loadimage(schedule, "./images/schedule.jpg", 348, 640);
+	::loadimage(background, "./DailyRecorderImages/backgroundImage/background.jpg", background->getwidth(), background->getheight());
 	menu_btns.push_back(PushButton("添加生活记录"));
 	menu_btns.push_back(PushButton("查看生活记录"));
 	menu_btns.push_back(PushButton("删除生活记录"));
-	menu_btns.push_back(PushButton("退出小红书"));
-	edit_btns.push_back(PushButton("添加标题"));
-	edit_btns.push_back(PushButton("在这里写下你的生活感悟~"));
-	edit_btns.push_back(PushButton("编辑完成"));
+	menu_btns.push_back(PushButton("说明"));
+	menu_btns.push_back(PushButton("退出小红书", RGB(140, 194, 105)));
+	edit_btns.push_back(PushButton("添加标题", RGB(32, 161, 98)));
+	edit_btns.push_back(PushButton("在这里写下你的生活感悟~", RGB(32, 161, 98)));
+	edit_btns.push_back(PushButton("编辑完成", RGB(32, 161, 98)));
 	setPos(menu_btns);
 	setPos(imageArray.second);
 	setPos(recorderArray.second);
@@ -61,7 +59,8 @@ void DailyRecorderManager::operator()()
 		case 1:op = pictureChoosePage(); break;
 		case 2:op = recordersSelectAndRecordersDeletePage(1); break; 
 		case 3:op = recordersSelectAndRecordersDeletePage(2); break;
-		case 4:goto flag;
+		case 4:op = explanationPage(); break;
+		case 5:goto flag;
 		}
 	}
 flag:
@@ -84,7 +83,6 @@ void DailyRecorderManager::fileInit()
 		IMAGE* temp = new IMAGE;
 		string IMAGETOSELECT = "./DailyRecorderImages/ImagesToSelect/" + (string)fileinfo.name;
 		::loadimage(temp, IMAGETOSELECT.c_str(), temp->getheight(), temp->getwidth());
-		//cout << temp->getwidth() << temp->getheight();
 		imageArray.first.push_back(make_pair(IMAGETOSELECT, temp));
 		imageArray.second.push_back(PushButton(fileinfo.name));
 	} while (!_findnext(handle, &fileinfo));
@@ -118,14 +116,12 @@ void DailyRecorderManager::fileInit()
 		system("cls");
 		return;
 	}
-	ifs.close();
-	ifs.open(FILENAME, ios::in);
+	ifs.putback(ch);
 	string title, content, time, address;
 	while (ifs >> title >> content >> time >> address)
 	{
 
 		recorderArray.first.push_back(DailyRecorder(title, content, address, time));
-		//cout << title << address << time << content << endl;
 		recorderArray.second.push_back(PushButton(title));
 	}
 	ifs.close();
@@ -214,10 +210,12 @@ int DailyRecorderManager::pictureChoosePage()
 	showEsc();
 	show_btns(imageArray.second);
 	MyWindow::endDraw();
+
 	while (1)
 	{
 		if (isEsc())return 0;
 		if (MyWindow::hasMsg())msg = MyWindow::getMsg();
+
 		switch (op)
 		{
 		case 0:
@@ -247,12 +245,14 @@ int DailyRecorderManager::recordersSelectAndRecordersDeletePage(int mode)
 {
 	int op = 0;
 	Sleep(100);
+
 	MyWindow::beginDraw();
 	cleardevice();
 	drawBackground();
 	showEsc();
 	show_btns(recorderArray.second);
 	MyWindow::endDraw();
+
 	while (1)
 	{
 
@@ -260,7 +260,6 @@ int DailyRecorderManager::recordersSelectAndRecordersDeletePage(int mode)
 		if (MyWindow::hasMsg())msg = MyWindow::getMsg();
 		switch (op)
 		{
-			//case -2:op = addSubject(); break;
 		case -1:
 		{
 			op = menueventLoop(recorderArray.second);
@@ -286,6 +285,12 @@ int DailyRecorderManager::recordersSelectAndRecordersDeletePage(int mode)
 		}
 		}
 	}
+	return 0;
+}
+
+int DailyRecorderManager::explanationPage()
+{
+	MessageBox(MyWindow::getHWND(), "如需添加图片，请将图片（png格式）手动放入\n./DailyRecorderImages/ImagesToSelect/文件夹下，\n宽高均400像素以内，程序会自动识别的。", "提示", MB_OK);
 	return 0;
 }
 
@@ -322,17 +327,19 @@ void DailyRecorderManager::showEsc()
 int DailyRecorderManager::editPage(int i)
 {
 	int op = -1;
+
 	MyWindow::beginDraw();
 	cleardevice();
 	show_btns(edit_btns);
+	showEsc();
 	::putimage((MyWindow::width() - imageArray.first[i].second->getwidth()) / 2, 
 		(MyWindow::height() - imageArray.first[i].second->getheight()) / 2, imageArray.first[i].second);
 	MyWindow::endDraw();
 	Sleep(100);
 	char title[20] = { 0 }, content[1000] = { 0 };
+
 	while (1)
 	{
-		//show_btns(imageArray.second);
 		if (isEsc()||op==-2)
 		{
 			edit_btns[0].set_m_text("添加标题");
@@ -351,6 +358,7 @@ int DailyRecorderManager::editPage(int i)
 				::putimage((MyWindow::width() - imageArray.first[i].second->getwidth()) / 2,
 					(MyWindow::height() - imageArray.first[i].second->getheight()) / 2, imageArray.first[i].second);
 				show_btns(edit_btns);
+				showEsc();
 				MyWindow::endDraw();
 				Sleep(100);
 				op = -1;
@@ -422,6 +430,7 @@ void DailyRecorderManager::draw(char title[],char content[])
 	ty2 = 500;
 	setfillcolor(WHITE);
 	if (isWrite[1])fillrectangle(tx2, ty2, 540, 630);
+
 	string temp1 = content;
 	string temp2;
 	int size = (int)strlen(content), cnt = 0;

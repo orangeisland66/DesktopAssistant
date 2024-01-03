@@ -44,7 +44,6 @@ public:
 	IMAGE *menu;
 	IMAGE *schedule;
 	vector<PushButton>addButton;
-	MyWindow w;
 
 };
 

@@ -42,8 +42,7 @@ AccountBookManager::AccountBookManager():inSum(0),outSum(0){
 		system("cls");
 		return;
 	}
-	ifs.close();
-	ifs.open(FILENAME, ios::in);
+	ifs.putback(ch);
 	while (ifs >> year && ifs >> month && ifs >> day && ifs >> money && ifs >> InorOut)
 	{
 		Account ac(year, month, day, money, InorOut);
@@ -58,33 +57,34 @@ AccountBookManager::AccountBookManager():inSum(0),outSum(0){
 
 void AccountBookManager::write()
 {
-	int choice;
-	cout << "请输入想要记录的类型：\n";
-	cout << "1、支出 2、收入：\n";
-	cin >> choice;
-	//numCheck();
+
 	string dateInput;
 	double money;
+	cout << "请输入想要记录的类型：\n";
+	cout << "1、支出 2、收入：\n";
+
+	int choice;
+	if ((choice = cinCheck<int>(1, 2)) == 0)return;
 	if (choice == 1)
 	{
 		cout << "请输入支出的日期：（年/月/日）\n";
-		cin >> dateInput;
+		while (cin >> dateInput && !cinCheck<bool>(4, 0, dateInput))cout << "格式错误，请重新输入！\n";
+
 		cout << "请输入支出金额：\n";
-		cin >> money;
+		if ((money = cinCheck<double>(2)) == 0)return;
 		accountRegister(dateInput, money,choice);
 	}
 	if (choice == 2)
 	{
 
 		cout << "请输入获得收入的日期：（年/月/日）\n";
-		cin >> dateInput;
+		while (cin >> dateInput && !cinCheck<bool>(4, 0, dateInput))cout<<"格式错误！请重新输入！\n";
 		cout << "请输入收入金额：\n";
-		cin >> money;
+		if ((money = cinCheck<double>(2)) == 0)return;
 		accountRegister(dateInput, money, choice);
 	}
 
 	cout << "添加成功！\n";
-	//MenuManager(1)();
 }
 
 void AccountBookManager::show()
@@ -94,7 +94,7 @@ void AccountBookManager::show()
 	cout << "2、显示收入" << endl;
 	cout << "3、显示全部" << endl;
 	int choice;
-	cin >> choice;
+	if ((choice = cinCheck<int>(1, 3)) == 0)return;
 	system("cls");
 	switch (choice)
 	{
@@ -126,9 +126,9 @@ void AccountBookManager::searchByDate()
 	int Year_Month_Date1[3], Year_Month_Date2[3];
 	string s1, s2;
 	cout << "请输入起始查询日期：\n";
-	cin >> s1;
+	while (cin >> s1 && !cinCheck<bool>(4, 0, s1))cout << "格式错误，请重新输入！\n";
 	cout << "请输入结束查询日期：\n";
-	cin >> s2;
+	while (cin >> s2 && !cinCheck<bool>(4, 0, s2))cout << "格式错误，请重新输入！\n";
 
 	transform(s1, Year_Month_Date1), transform(s2, Year_Month_Date2);
 	const Account ac1(Year_Month_Date1[0], Year_Month_Date1[1], Year_Month_Date1[2], 0, 0);
@@ -177,7 +177,6 @@ void AccountBookManager::transform(string &YMD,int *Y_M_D)
 			stringstream ss;
 			ss << temp;
 			ss >> Y_M_D[count++];
-			//cout << YearorMonthorDate[count - 1];
 		}
 	}
 	temp = YMD.substr(pos);
@@ -190,7 +189,6 @@ void AccountBookManager::accountRegister(string &s,double &money,int &choice)
 {
 	int year_month_date[3];
 	transform(s, year_month_date);
-	//cout << YearorMonthorDate[count - 1];
 	const Account ac(year_month_date[0], year_month_date[1], year_month_date[2], money,(bool)(choice-1));
 	if ((choice - 1) == 0)outSum += money;
 	else inSum += money;
@@ -210,7 +208,6 @@ void AccountBookManager::delete_()
 {
 	if (isEmpty())return;
 	cout << endl << "总收入：" << inSum << " 总支出：" << outSum << endl << endl;
-	//for_each(AccountArray.begin(), AccountArray.end(), MyPrint);
 	int i = 0;
 	for (multiset<Account>::iterator it= accountArray.begin(); it != accountArray.end(); it++)
 	{
@@ -219,7 +216,7 @@ void AccountBookManager::delete_()
 	}
 	cout << "请问你想要删除哪条收入或支出记录？\n";
 	int num;
-	cin >> num;
+	if ((num = cinCheck<int>(1, i)) == 0)return;
 	int j = 0;
 	for (multiset<Account>::iterator it = accountArray.begin(); it != accountArray.end(); it++)
 	{
@@ -261,7 +258,6 @@ bool AccountBookManager::isEmpty()
 
 void AccountBookManager::Manager()
 {
-	//ShowAccountBookMenu();
 	int choice;
 
 	while (1)

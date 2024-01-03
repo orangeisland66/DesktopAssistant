@@ -8,8 +8,8 @@ class MyWindow
 public:
 	MyWindow();
 	MyWindow(int w, int h, int flag);
-	void setWindowTitle(const string& title);
-	int exec();
+	static void setWindowTitle(const string& title);
+	static int exec();
 	static int width();
 	static int height();
 	static void clear();

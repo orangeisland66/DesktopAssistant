@@ -10,7 +10,6 @@ public:
 	void operator()();
 	void fileInit();
 	void setPos(vector<PushButton>& v);
-	void editPage();
 	int delete_(int i);
 	int showRecorder(int i);
 	void show_btns(vector<PushButton>& v);
@@ -18,6 +17,7 @@ public:
 	int menueventLoop(vector<PushButton>& v);
 	int pictureChoosePage(); 
 	int recordersSelectAndRecordersDeletePage(int mode); 
+	int explanationPage();
 	bool isEsc();
 	void showEsc();
 	int editPage(int i);

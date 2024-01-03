@@ -266,3 +266,13 @@ int main(int argc, char* argv[])
 //        printf("Time created : %s", timebuf);
 //    }
 //}
+
+	//struct tm t1 = { 0 };
+	//struct tm t2 = { 0 };
+	//double seconds;
+	//t1.tm_year = 2019 - 1900; t1.tm_mon = 6; t1.tm_mday = 6;//现在时间2019,7,6  
+	//t2.tm_year = 2020 - 1900; t2.tm_mon = 5; t2.tm_mday = 7;//明年高考时间2020,6,7  
+
+	//seconds = difftime(mktime(&t2), mktime(&t1));//转换结构体为time_t,利用difftime,计算时间差  
+
+	//cout << "剩余天数: " << seconds / 86400 << endl;//最后输出时间,因为一天有86400秒(60*60*24)  

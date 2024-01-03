@@ -31,8 +31,7 @@ StudyRecorderManager::StudyRecorderManager()
 		system("cls");
 		return;
 	}
-	ifs.close();
-	ifs.open(FILENAME, ios::in);
+	ifs.putback(ch);
 	while (ifs >> year && ifs >> month && ifs >> day && ifs >> place && ifs >> content)
 	{
 		StudyRecorder rc(year, month, day, place , content);
@@ -47,12 +46,11 @@ void StudyRecorderManager::write()
 {
 	cout << "请输入学习的时间：\n";
 	string StudyTime;
-	cin >> StudyTime;
+	while (cin >> StudyTime && !cinCheck<bool>(4, 0, StudyTime))cout << "格式错误，请重新输入！\n";
 	int Year_Month_Day[3];
 	int size = StudyTime.size();
 	string temp;
 	int pos = 0, count = 0;
-
 	for (int i = 0; i < size; i++)
 	{
 		if (StudyTime[i] == '/')

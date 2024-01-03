@@ -2,10 +2,9 @@
 
 Subject::Subject(string subjectName, string teacher, string string_weekday, string sections, bool have_ddl,
 				int year, int month, int day, bool have_reminder) :
-	subjectName(subjectName), teacher(teacher), string_weekday(string_weekday), sections(sections), butn(subjectName),
+	subjectName(subjectName), teacher(teacher), string_weekday(string_weekday), sections(sections), butn(subjectName,RGB(252,140,35)),
 	have_ddl(have_ddl), year(year), month(month), day(day), have_reminder(have_reminder)
 {
-	//cout << subjectName << teacher << string_weekday << sections << endl;
 	setHourAndMinute();
 	setweekday();
 	butn.set(setButton_x(), setButton_y(), setButtonWidth(), setButtonHeight());

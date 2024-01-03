@@ -1,7 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include"Account.h"
-//#include<windows.h>
+
 Account::Account(int year, int month, int day,double money, bool IO):
 	year(year),month(month),day(day),money(money),InorOut(IO){}
 

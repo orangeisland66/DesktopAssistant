@@ -5,6 +5,7 @@ void ShowAccountBookMenu();
 void ShowStudyRecorderMenu();
 void ShowPasswordRecorderMenu();
 void Pause_and_Cls();
+
 class MenuManager
 {
 public:

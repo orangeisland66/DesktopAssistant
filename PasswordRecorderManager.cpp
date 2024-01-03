@@ -1,10 +1,10 @@
 #include"PasswordRecorderManager.h"
 
 
-#define FILENAME "./txts/PasswordRecorder.txt"
-#define PASSWORDFILE "./txts/ThePasswordOfPasswordRecorder.txt"
+#define FILENAME "./txts/PasswordRecorder.png"
+#define PASSWORDFILE "./txts/ThePasswordOfPasswordRecorder.png"
 
-PasswordRecorderManager::PasswordRecorderManager():is_Init(false)
+PasswordRecorderManager::PasswordRecorderManager() :is_Init(false)
 {
 	system("cls");
 	cout << "正在初始化……\n";
@@ -40,7 +40,7 @@ PasswordRecorderManager::PasswordRecorderManager():is_Init(false)
 	cout << "正在读取记录文件……\n";
 	Sleep(1000);
 	if (!ifs.is_open())
-	ifs.open(FILENAME, ios::in);
+		ifs.open(FILENAME, ios::in);
 	is_Init = true;
 	string AccountName, Password;
 	if (!ifs.is_open())
@@ -62,10 +62,10 @@ PasswordRecorderManager::PasswordRecorderManager():is_Init(false)
 	}
 	ifs.close();
 	ifs.open(FILENAME, ios::in);
-	
-	while (ifs >> AccountName && ifs >> Password )
+
+	while (ifs >> AccountName && ifs >> Password)
 	{
-		PasswordRecorderArray.push_back(make_pair(AccountName,Password));
+		PasswordRecorderArray.push_back(make_pair(AccountName, Password));
 	}
 	ifs.close();
 	cout << "记录文件获取成功……\n";
@@ -102,7 +102,7 @@ flag:
 
 void MyPasswordRecorderArrayPrint::operator()(const pair<string, string>& p)
 {
-	cout <<"账号：" << p.first << "\t\t" << "密码：" << p.second << endl;
+	cout << "账号：" << p.first << "\t\t" << "密码：" << p.second << endl;
 }
 
 void PasswordRecorderManager::init()
@@ -110,7 +110,7 @@ void PasswordRecorderManager::init()
 	ofstream ofs;
 	ofs.open(FILENAME, ios::trunc);
 	ofs.close();
-	string Password,Password_to_Confirm;
+	string Password, Password_to_Confirm;
 	cout << "当前暂未设置访问密码，正在进行访问密码初始化……\n";
 	int cnt = 0;
 	do
@@ -129,6 +129,7 @@ void PasswordRecorderManager::init()
 	ofs.open(PASSWORDFILE, ios::out);
 	ofs << Password;
 	is_Init = true;
+	SetFileAttributes(PASSWORDFILE, FILE_ATTRIBUTE_HIDDEN);
 	cout << "设置成功！\n";
 	Sleep(1000);
 }
@@ -154,7 +155,7 @@ bool PasswordRecorderManager::checkPassword()
 	Sleep(1000);
 	system("cls");
 	return true;
-	
+
 }
 
 void PasswordRecorderManager::write()
@@ -171,6 +172,7 @@ void PasswordRecorderManager::write()
 	ofs.open(FILENAME, ios::app);
 	ofs << AccountName << " " << Password << endl;
 	ofs.close();
+	SetFileAttributes(FILENAME, FILE_ATTRIBUTE_HIDDEN);
 	cout << "密码已经被记录！\n";
 }
 
@@ -198,27 +200,27 @@ vector<pair<int, pair<string, string>>> PasswordRecorderManager::find()
 		it != PasswordRecorderArray.end(); it++)
 	{
 		if ((*it).first == Name_to_Find)
-			if_Find_Array.push_back(make_pair(cnt,make_pair((*it).first, (*it).second)));
+			if_Find_Array.push_back(make_pair(cnt, make_pair((*it).first, (*it).second)));
 		cnt++;
 	}
-		
+
 	if (if_Find_Array.empty())
 	{
 		cout << "未找到该账号！\n";//三秒后返回密码记录器首页……\n";
 		//Sleep(3000);
 		return if_Find_Array;
 	}
-	
+
 	int size = if_Find_Array.size();
 	if (size == 1)
 	{
-		cout  << "账号：" << if_Find_Array[0].second.first << "\t\t" << "密码："  << if_Find_Array[0].second.second << endl;
+		cout << "账号：" << if_Find_Array[0].second.first << "\t\t" << "密码：" << if_Find_Array[0].second.second << endl;
 		return if_Find_Array;
 	}
 	cout << "找到以下" << size << "个账号及其对应的密码：\n\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout << i+1 << endl << "账号："  << if_Find_Array[i].second.first << "\t\t" << "密码：" << if_Find_Array[i].second.second << endl;
+		cout << i + 1 << endl << "账号：" << if_Find_Array[i].second.first << "\t\t" << "密码：" << if_Find_Array[i].second.second << endl;
 	}
 	cout << "\n" << endl;
 	return if_Find_Array;
@@ -249,7 +251,7 @@ void PasswordRecorderManager::delete_()
 	cout << "请输入需要删除的账号：" << endl;
 	vector<pair<int, pair<string, string>>>Password_to_Delete = find();
 	int num = 0;
-	if(Password_to_Delete.empty())return;
+	if (Password_to_Delete.empty())return;
 	if (Password_to_Delete.size() == 1)
 	{
 		comfirmToDelete(Password_to_Delete, num);
@@ -270,10 +272,10 @@ void PasswordRecorderManager::delete_()
 		}
 		else { num--; comfirmToDelete(Password_to_Delete, num); }
 	}
-	
+
 }
 
-void PasswordRecorderManager::comfirmToDelete(vector<pair<int, pair<string, string>>>&Password_to_Delete,int &num)
+void PasswordRecorderManager::comfirmToDelete(vector<pair<int, pair<string, string>>>& Password_to_Delete, int& num)
 {
 	cout << "请问你确定要删除吗？（Y/N）\n";
 	string to_Confirm;
@@ -340,12 +342,13 @@ void PasswordRecorderManager::reset()
 		ofstream ofs;
 		ofs.open(PASSWORDFILE, ios::out);
 		ofs << Password;
+		SetFileAttributes(PASSWORDFILE, FILE_ATTRIBUTE_HIDDEN);
 		ofs.close();
 		cout << "密码修改成功！" << endl;
 	}
 	Sleep(1000);
 	return;
-	
+
 }
 
 

@@ -157,7 +157,7 @@
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="MyWindow.h" />
     <ClInclude Include="PasswordRecorderManager.h" />
-    <ClInclude Include="PrintTemplate.hpp" />
+    <ClInclude Include="Template.hpp" />
     <ClInclude Include="PushButton.h" />
     <ClInclude Include="StudyRecorderManager.h" />
     <ClInclude Include="StudyRecorder.h" />

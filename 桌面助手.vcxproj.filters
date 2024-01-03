@@ -134,7 +134,7 @@
     <ClInclude Include="MenuManager.h">
       <Filter>头文件\其他</Filter>
     </ClInclude>
-    <ClInclude Include="PrintTemplate.hpp">
+    <ClInclude Include="Template.hpp">
       <Filter>头文件\其他</Filter>
     </ClInclude>
     <ClInclude Include="MyWindow.h">

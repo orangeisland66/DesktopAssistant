@@ -4,26 +4,30 @@ MemoManager::MemoManager()
 	:menu(new IMAGE(640, 793)), schedule(new IMAGE(348, 640))
 {
 	fileInit();
-	w = MyWindow(640, 680, EW_SHOWCONSOLE | EX_NOCLOSE);
+	MyWindow::MyWindow(640, 680, EW_SHOWCONSOLE | EX_NOCLOSE);
+	MyWindow::setWindowTitle("课程备忘录");
+
 	LOGFONT f;
 	gettextstyle(&f);						// 获取当前字体设置
 	f.lfQuality = ANTIALIASED_QUALITY;		// 设置输出效果为抗锯齿  
 	settextstyle(&f);						// 设置字体样式
-	SystemTime t;
-	t.getSystemTime();
-	w.setWindowTitle("课程备忘录");
+
+	SystemTime::getSystemTime();
+	
 	setbkmode(TRANSPARENT);
 	::loadimage(menu, "./MemoImages/menu.jpg", 640, 793);
 	::loadimage(schedule, "./MemoImages/schedule.jpg", 348, 640);
-	menu_btns.push_back(PushButton("查看课表"));
-	menu_btns.push_back(PushButton("退出课程备忘录系统"));
-	select_btns.push_back(PushButton("添加课程提醒"));
-	select_btns.push_back(PushButton("删除课程提醒"));
-	select_btns.push_back(PushButton("添加作业ddl"));
-	select_btns.push_back(PushButton("删除作业ddl"));
-	select_btns.push_back(PushButton("查看课程详细信息"));
-	select_btns.push_back(PushButton("删除该课程"));
-	addButton.push_back(PushButton("添加课程"));
+
+	menu_btns.push_back(PushButton("查看课表", RGB(32, 161, 98)));
+	menu_btns.push_back(PushButton("退出课程备忘录系统",RGB(140,194,105)));
+	select_btns.push_back(PushButton("添加课程提醒", RGB(102, 193, 140)));
+	select_btns.push_back(PushButton("删除课程提醒", RGB(102, 193, 140)));
+	select_btns.push_back(PushButton("添加作业ddl", RGB(102, 193, 140)));
+	select_btns.push_back(PushButton("删除作业ddl", RGB(102, 193, 140)));
+	select_btns.push_back(PushButton("查看课程详细信息", RGB(102, 193, 140)));
+	select_btns.push_back(PushButton("删除该课程", RGB(102, 193, 140)));
+	addButton.push_back(PushButton("添加课程", RGB(32, 161, 98)));
+
 	setPos(menu_btns);
 	setPos(select_btns);
 	addButton[0].move(360, 560);
@@ -38,6 +42,7 @@ void MemoManager::operator()()
 		MyWindow::beginDraw();
 		cleardevice();
 		drawBackground(1);
+
 		if (MyWindow::hasMsg())
 		{
 			msg = MyWindow::getMsg();
@@ -46,6 +51,7 @@ void MemoManager::operator()()
 		SystemTime::getSystemTime();
 		SystemTime::showTime();
 		MyWindow::endDraw();
+
 		switch (op)
 		{
 		case -1:
@@ -98,8 +104,7 @@ void MemoManager::fileInit()
 		system("cls");
 		return;
 	}
-	ifs.close();
-	ifs.open(FILENAME, ios::in);
+	ifs.putback(ch);
 	while (ifs >> subjectName && ifs >> teacher && ifs >> string_weekday && ifs >> sections && ifs >> have_ddl)
 	{
 		if (have_ddl == true)
@@ -135,9 +140,9 @@ void MemoManager::transform1(string YMD,int *Y_M_D)
 			stringstream ss;
 			ss << temp;
 			ss >> Y_M_D[count++];
-			//cout << YearorMonthorDate[count - 1];
 		}
 	}
+
 	temp = YMD.substr(a);
 	stringstream ss;
 	ss << temp;
@@ -196,8 +201,8 @@ void MemoManager::reminder_and_ddlShow()
 	settextstyle(22, 0, ("微软雅黑"));
 	int size1 = (int)subjectArray.size();
 	int cnt = 0;
-	SystemTime::getSystemTime();
-	//用一个vector类型存储这周已经上过的课程，在输出以保证时间顺序，但是不知道为什么，不能用数组，，，显示会出问题
+	SystemTime::getSystemTime();//用一个vector类型存储这周已经上过的课程，在输出以保证时间顺序，但是不知道为什么，不能用数组，，，显示会出问题
+
 	vector < pair<string, vector<int>>>temp1;
 	for (int i = 0; i < size1; i++)
 	{
@@ -238,7 +243,6 @@ void MemoManager::reminder_and_ddlShow()
 				bs = 1;
 				v.push_back(day), v.push_back(hour), v.push_back(minute), v.push_back(second);
 				temp1.push_back(make_pair(subjectArray[i].getSubjectName(), v));
-				//cout << temp[temp.size()-1].second[0];
 			}
 			else
 			{
@@ -252,16 +256,17 @@ void MemoManager::reminder_and_ddlShow()
 		}
 		
 	}
+
 	int size2 = (int)temp1.size();
 	for (int i = 0; i < size2; i++)
 	{
 		outtextxy(360, 60 + 35 * cnt, temp1[i].first.c_str());
-		//cout<<temp[i].second[0];
 		outtextxy(470, 60 + 35 * (cnt++), transform2(temp1[i].second).c_str());
 	}
 	settextstyle(40, 0, ("行楷"));
 	outtextxy(360, 300, "课程作业ddl");
 	settextstyle(22, 0, ("微软雅黑"));
+
 	set <Deadline,MyCompare<Deadline>> temp_ddlArray;
 	for (vector<Subject>::iterator it = subjectArray.begin(); it != subjectArray.end(); it++)
 	{
@@ -269,13 +274,12 @@ void MemoManager::reminder_and_ddlShow()
 		if ((*it).is_ddl())
 		{
 				int dayRemain = calculateDay((*it).getYear(), (*it).getMonth(), (*it).getDay());
-				if (dayRemain == -1)(*it).delete_ddl();
+				if (dayRemain <= -1)(*it).delete_ddl();
 				else temp_ddlArray.insert(Deadline((*it).getSubjectName(), dayRemain));
 		}
 	}
+
 	cnt = 0;
-	stringstream ss;
-	string days;
 	for (set<Deadline>::iterator it = temp_ddlArray.begin(); it != temp_ddlArray.end(); it++)
 	{
 		(*it).deadlineOutput(cnt++);
@@ -299,24 +303,31 @@ int MemoManager::deleteSubject(int i)
 int MemoManager::addSubject()
 {
 	char subjectInput[30] = { 0 };
-	string s;
-	bool isInput = InputBox(subjectInput, 30, "格式：课程名 教师名 星期几 起止节数\n例子：数电 小小 星期二(周二) 1-2 \n（各部分之间隔一个空格！课程名不多于六个字，最好中文，不要和已有科目时间重复，求求了！）",
+	string transform;
+	bool isInput = InputBox(subjectInput, 30, 
+		"格式：课程名 教师名 星期几 起止节数\n例子：数电 小小 星期二(周二) 1-2 \n（各部分之间隔一个空格！课程名不多于六个字，最好中文，不要和已有科目时间重复，求求了！）",
 		"添加课程信息", NULL, 0, 0, false);
 	if (strlen(subjectInput) == 0 || !isInput)return -1;
-	s = subjectInput;
+	if (!cinCheck<bool>(5, 0, subjectInput))
+	{
+		MessageBox(MyWindow::getHWND(), "输入格式错误，添加失败！", "提示", MB_OK);
+		return -1;
+	}
+	transform = subjectInput;
 	string info[4];
-	int size = (int)s.size();
+	int size = (int)transform.size();
 	int pos = 0, cnt = 0;
 	for (int i = 0; i <= size; i++)
 	{
-		if (s[i] == ' ' || s[i] == '\0')
+		if (transform[i] == ' ' || transform[i] == '\0')
 		{
-			info[cnt++] = s.substr(pos, i - pos);
+			info[cnt++] = transform.substr(pos, i - pos);
 			pos = i + 1;
 		}
 	}
 	subjectArray.push_back(Subject(info[0], info[1], info[2], info[3]));
 	sortAndBtnsPushBack();
+
 	save();
 	MessageBox(MyWindow::getHWND(), "已经成功添加该课程！", "提示", MB_OK);
 	return -1;
@@ -327,16 +338,23 @@ int MemoManager::add_ddl(int i)
 	char dateInput[15] = { 0 };
 	bool isInput = InputBox(dateInput, 15, "请输入截止时间\n格式：Y/M/D\n例子：2024/1/25", "输入截止时间", NULL, 0, 0, false);
 	if (strlen(dateInput)==0 || !isInput)return 7;
+	if (!cinCheck<bool>(4, 0, dateInput))
+	{
+		MessageBox(MyWindow::getHWND(), "输入格式错误，添加失败！", "提示", MB_OK);
+		return 7;
+	}
 	int year_month_date[3] = { 0 };
 	transform1(dateInput, year_month_date);
+
 	SystemTime::getSystemTime();
+
 	bool flag = true;
 	if (year_month_date[0] < SystemTime::getYear())flag = false;
 	if ((year_month_date[0] == SystemTime::getYear())&&(year_month_date[1] < SystemTime::getMonth()))flag = false;
 	if ((year_month_date[0] == SystemTime::getYear()) && (year_month_date[1] == SystemTime::getMonth()) && (year_month_date[2] < SystemTime::getDay()))flag = false;
 	if (flag == false)
 	{
-		MessageBox(MyWindow::getHWND(), "怎么回事，这时间已经过啦！", "提示", MB_OK);
+		MessageBox(MyWindow::getHWND(), "别活在过去了，ddl是给未来准备的！", "提示", MB_OK);
 		return 7;
 	}
 	if(!subjectArray[i].set_ddl(year_month_date[0], year_month_date[1], year_month_date[2]))
@@ -361,7 +379,6 @@ int	MemoManager::delete_ddl(int i)
 			MessageBox(MyWindow::getHWND(), "你已经成功删除ddl！", "提示", MB_OK);
 		}
 	}
-	//else MessageBox(MyWindow::getHWND(), "当前未添加该课程的ddl，无需删除！", "提示", MB_OK);
 	return 7;
 }
 
@@ -433,6 +450,7 @@ int MemoManager::schedulePage()
 	int op = 0;
 	Sleep(100);
 	setbkcolor(RGB(104, 177, 220));
+
 	while (1)
 	{
 		MyWindow::beginDraw();
@@ -442,11 +460,14 @@ int MemoManager::schedulePage()
 		show_btns(addButton);
 		reminder_and_ddlShow();
 		MyWindow::endDraw();
+
 		if (isEsc())return -1;
+
 		if (MyWindow::hasMsg())
 		{
 			msg = MyWindow::getMsg();
 		}
+
 		switch (op)
 		{
 		case -2:op = addSubject(); break;
@@ -505,6 +526,7 @@ int MemoManager::selectMenu(int i)
 
 	int op = 0;
 	Sleep(100);
+
 	while (1)
 	{
 		MyWindow::beginDraw();
@@ -513,12 +535,14 @@ int MemoManager::selectMenu(int i)
 		showEsc();
 		show_btns(select_btns);
 		MyWindow::endDraw();
+
 		if (isEsc())return -1;
+
 		if (MyWindow::hasMsg())
 		{
 			msg = MyWindow::getMsg();
 		}
-		//eventLoop(schedule_btns);
+
 		switch (op)
 		{
 		case 0:op = menueventLoop(select_btns); break;
@@ -560,7 +584,7 @@ void MemoManager::sortAndBtnsPushBack()
 {
 	sort(subjectArray.begin(), subjectArray.end(), MyCompare<Subject>());
 	schedule_btns.clear();
-	//schedule_btns.resize(subjectArray.size());
+
 	for (vector<Subject>::iterator it = subjectArray.begin(); it != subjectArray.end(); it++)
 	{
 		schedule_btns.push_back((*it).getButn());
@@ -578,15 +602,6 @@ int MemoManager::calculateDay(int year,int month,int day)
 	seconds = difftime(mktime(&t2), mktime(&t1));//转换结构体为time_t,利用difftime,计算时间差  
 	if (seconds == 0)return -1;
 	return (int)(seconds / 86400);//最后输出时间,因为一天有86400秒(60*60*24)
-	//struct tm t1 = { 0 };
-	//struct tm t2 = { 0 };
-	//double seconds;
-	//t1.tm_year = 2019 - 1900; t1.tm_mon = 6; t1.tm_mday = 6;//现在时间2019,7,6  
-	//t2.tm_year = 2020 - 1900; t2.tm_mon = 5; t2.tm_mday = 7;//明年高考时间2020,6,7  
-
-	//seconds = difftime(mktime(&t2), mktime(&t1));//转换结构体为time_t,利用difftime,计算时间差  
-
-	//cout << "剩余天数: " << seconds / 86400 << endl;//最后输出时间,因为一天有86400秒(60*60*24)  
 }
 
 MemoManager::~MemoManager()

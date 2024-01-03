@@ -1,4 +1,6 @@
 #pragma once
+#pragma warning(disable:4267)
+#pragma warning(disable:4244)
 
 #ifdef UNICODE
 #undef UNICODE
@@ -14,7 +16,7 @@
 #include<set>
 #include<iostream>
 #include<sstream>
-#include"PrintTemplate.hpp"
+#include"Template.hpp"
 #include<conio.h>
 #include<easyx.h>
 #include <stdlib.h>

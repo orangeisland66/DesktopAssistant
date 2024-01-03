@@ -28,7 +28,6 @@ public:
 	int getMonth();
 	int getDay();
 	string getSubjectName();
-	//frien ofstream&operator<<
 	PushButton getButn()const;
 private:
 	string subjectName;
