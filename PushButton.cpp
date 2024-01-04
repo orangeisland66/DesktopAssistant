@@ -25,12 +25,28 @@ void PushButton::show(int mode)
 		}
 		else if (m_w < m_text.size() * 11 && m_text.size() >= 10)
 		{
-			string text1 = m_text.substr(0, 6);
-			string text2 = m_text.substr(6);
-			int tx = m_x + (m_w - textwidth(text1.c_str())) / 2;
-			int ty = m_y + (m_h - textheight(text1.c_str())) / 2;
-			::outtextxy(tx, ty - 7, text1.c_str());
-			::outtextxy(tx, ty + 7, text2.c_str());
+			if (m_text.size() < 13)
+			{
+				string text1 = m_text.substr(0, 6);
+				string text2 = m_text.substr(6);
+				int tx = m_x + (m_w - textwidth(text1.c_str())) / 2;
+				int ty = m_y + (m_h - textheight(text1.c_str())) / 2;
+				::outtextxy(tx, ty - 7, text1.c_str());
+				::outtextxy(tx, ty + 7, text2.c_str());
+			}
+			else
+			{
+				string text1 = m_text.substr(0, 6);
+				string text2 = m_text.substr(6, 6);
+				string text3 = m_text.substr(12);
+				int tx = m_x + (m_w - textwidth(text1.c_str())) / 2;
+				int ty = m_y + (m_h - textheight(text1.c_str())) / 2;
+				::outtextxy(tx, ty - 14, text1.c_str());
+				::outtextxy(tx, ty , text2.c_str());
+				::outtextxy(tx, ty + 14, text3.c_str());
+
+			}
+
 		}
 		else
 		{

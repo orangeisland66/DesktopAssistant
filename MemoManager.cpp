@@ -292,22 +292,122 @@ void MemoManager::reminder_and_ddlShow()
 int MemoManager::deleteSubject(int i)
 {
 
-	int flag = MessageBox(MyWindow::getHWND(), "你确定要删除该课程吗？", "提示", MB_YESNO);
+	int flag = MessageBox(MyWindow::getHWND(), "你确定要删除该课程吗？", "提示", MB_YESNO);//yes返回6，no返回7
 	if (flag == 6)
 	{
 		subjectArray.erase(subjectArray.begin() + i);
 		sortAndBtnsPushBack();
+		MessageBox(MyWindow::getHWND(), "删除成功！", "提示", MB_OK);
 		save();
 	}
-	return 7;
+	return -1;
 }
+
+int MemoManager::schedulePage()
+{
+
+	int op = 0;
+	Sleep(100);
+	setbkcolor(RGB(104, 177, 220));
+
+	while (1)
+	{
+		MyWindow::beginDraw();
+		cleardevice();
+		drawBackground(2);
+		show_btns(schedule_btns);
+		show_btns(addButton);
+		reminder_and_ddlShow();
+		MyWindow::endDraw();
+
+		if (isEsc())return -1;
+
+		if (MyWindow::hasMsg())
+		{
+			msg = MyWindow::getMsg();
+		}
+
+		switch (op)
+		{
+		case -2:op = addSubject(); break;
+		case -1:
+		{
+			MyWindow::beginDraw();
+			cleardevice();
+			drawBackground(2);
+			show_btns(schedule_btns);
+			show_btns(addButton);
+			reminder_and_ddlShow();
+			MyWindow::endDraw();
+			Sleep(100);
+			op = 0;
+			break;
+		}
+		case 0:
+		{
+			op = menueventLoop(schedule_btns);
+			if (op == 0)op = menueventLoop(addButton);
+			break;
+		}
+
+		default:op = selectMenu(op - 1); break;
+		}
+	}
+}
+
+int MemoManager::selectMenu(int i)
+{
+
+	int op = 0;
+	Sleep(100);
+
+	while (1)
+	{
+		MyWindow::beginDraw();
+		cleardevice();
+		drawBackground(1);
+		showEsc();
+		show_btns(select_btns);
+		MyWindow::endDraw();
+
+		if (isEsc())return -1;
+
+		if (MyWindow::hasMsg())
+		{
+			msg = MyWindow::getMsg();
+		}
+
+		switch (op)
+		{
+		case 0:op = menueventLoop(select_btns); break;
+		case 1:op = addReminder(i);  break;
+		case 2:op = deleteReminder(i); break;
+		case 3:op = add_ddl(i);  break;
+		case 4:op = delete_ddl(i); break;
+		case 5:op = showSubjectInfo(i);  break;
+		case 6:op = deleteSubject(i); break;
+		case 7:
+		{
+			MyWindow::beginDraw();
+			cleardevice();
+			drawBackground(1);
+			show_btns(select_btns);
+			MyWindow::endDraw();
+			Sleep(100);
+			op = 0;
+		}
+		}
+		if (op == -1)break;
+	}
+}
+
 
 int MemoManager::addSubject()
 {
-	char subjectInput[30] = { 0 };
+	char subjectInput[40] = { 0 };
 	string transform;
-	bool isInput = InputBox(subjectInput, 30, 
-		"格式：课程名 教师名 星期几 起止节数\n例子：数电 小小 星期二(周二) 1-2 \n（各部分之间隔一个空格！课程名不多于六个字，最好中文，不要和已有科目时间重复，求求了！）",
+	bool isInput = InputBox(subjectInput, 40, 
+		"格式：课程名 教师名 星期几 起止节数\n例子：数电 小小 星期二(周二) 1-2 \n（各部分之间隔一个空格！课程名不多于九个字，最好中文，不要和已有科目时间重复，求求了！）",
 		"添加课程信息", NULL, 0, 0, false);
 	if (strlen(subjectInput) == 0 || !isInput)return -1;
 	if (!cinCheck<bool>(5, 0, subjectInput))
@@ -338,7 +438,7 @@ int MemoManager::addSubject()
 int MemoManager::add_ddl(int i)
 {
 	char dateInput[15] = { 0 };
-	bool isInput = InputBox(dateInput, 15, "请输入截止时间\n格式：Y/M/D\n例子：2024/1/25", "输入截止时间", NULL, 0, 0, false);
+	bool isInput = InputBox(dateInput, 15, "请输入截止时间\n格式：Y/M/D\n例子：2024/1/25", "输入截止时间", NULL, 0, 0, false);//确定返回true，取消返回false
 	if (strlen(dateInput)==0 || !isInput)return 7;
 	if (!cinCheck<bool>(4, 0, dateInput))
 	{
@@ -446,58 +546,7 @@ bool MemoManager::isEsc()
 	return false;
 }
 
-int MemoManager::schedulePage()
-{
 
-	int op = 0;
-	Sleep(100);
-	setbkcolor(RGB(104, 177, 220));
-
-	while (1)
-	{
-		MyWindow::beginDraw();
-		cleardevice();
-		drawBackground(2);
-		show_btns(schedule_btns);
-		show_btns(addButton);
-		reminder_and_ddlShow();
-		MyWindow::endDraw();
-
-		if (isEsc())return -1;
-
-		if (MyWindow::hasMsg())
-		{
-			msg = MyWindow::getMsg();
-		}
-
-		switch (op)
-		{
-		case -2:op = addSubject(); break;
-		case -1:
-		{
-			MyWindow::beginDraw();
-			cleardevice();
-			drawBackground(2);
-			show_btns(schedule_btns);
-			show_btns(addButton);
-			reminder_and_ddlShow();
-			MyWindow::endDraw();
-			Sleep(100);
-			op = 0;
-			break;
-		}
-		case 0:
-		{
-			op = menueventLoop(schedule_btns);
-			if(op==0)op = menueventLoop(addButton);
-			break;
-		}
-		
-		default:op = selectMenu(op-1); break;
-		}
-
-	}
-}
 
 void MemoManager::setPos(vector<PushButton>& v)
 {
@@ -523,50 +572,7 @@ void MemoManager::drawBackground(int mode)
 	}
 }
 
-int MemoManager::selectMenu(int i)
-{
 
-	int op = 0;
-	Sleep(100);
-
-	while (1)
-	{
-		MyWindow::beginDraw();
-		cleardevice();
-		drawBackground(1);
-		showEsc();
-		show_btns(select_btns);
-		MyWindow::endDraw();
-
-		if (isEsc())return -1;
-
-		if (MyWindow::hasMsg())
-		{
-			msg = MyWindow::getMsg();
-		}
-
-		switch (op)
-		{
-		case 0:op = menueventLoop(select_btns); break;
-		case 1:op = addReminder(i);  break;
-		case 2:op = deleteReminder(i); break;
-		case 3:op = add_ddl(i);  break;
-		case 4:op = delete_ddl(i); break;
-		case 5:op = showSubjectInfo(i);  break;
-		case 6:op = deleteSubject(i); break;
-		case 7:
-		{
-			MyWindow::beginDraw();
-			cleardevice();
-			drawBackground(1);
-			show_btns(select_btns);
-			MyWindow::endDraw();
-			Sleep(100);
-			op = 0;
-		}
-		}
-	}
-}
 
 int MemoManager::showSubjectInfo(int i)
 {

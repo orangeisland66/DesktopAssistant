@@ -213,7 +213,7 @@ int DailyRecorderManager::pictureChoosePage()
 
 	while (1)
 	{
-		if (isEsc())return 0;
+		if (isEsc()||op==-2)return 0;
 		if (MyWindow::hasMsg())msg = MyWindow::getMsg();
 
 		switch (op)
@@ -348,6 +348,7 @@ int DailyRecorderManager::editPage(int i)
 			edit_btnsSetPos();
 			isWrite[0] = false;
 			isWrite[1] = false;
+			if (op == -2)return -2;
 			return 0;
 		}
 		if (MyWindow::hasMsg())msg = MyWindow::getMsg();

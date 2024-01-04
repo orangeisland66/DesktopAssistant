@@ -45,10 +45,10 @@ StudyRecorderManager::StudyRecorderManager()
 
 void StudyRecorderManager::write()
 {
-	cout << "请输入学习的时间：\n";
+	cout << "请输入学习的时间：(年/月/日）\n";
 	string StudyTime;
 	while (cin >> StudyTime && !cinCheck<bool>(4, 0, StudyTime))cout << "格式错误，请重新输入！\n";
-	int Year_Month_Day[3];
+	int Year_Month_Day[3] = { 0 };
 	int size = StudyTime.size();
 	string temp;
 	int pos = 0, count = 0;
