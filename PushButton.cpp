@@ -1,7 +1,7 @@
 #include "PushButton.h"
 
 PushButton::PushButton(const string& text, COLORREF color, int x, int y, int w, int h) :
-	BasicWidget(x,y,w,h),m_text(text),save(color),color1(color)
+	BasicWidget(x, y, w, h), m_text(text), save(color), color1(color),m_msg()
 {	
 }
 

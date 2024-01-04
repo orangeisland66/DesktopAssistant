@@ -54,6 +54,32 @@ AccountBookManager::AccountBookManager():inSum(0),outSum(0){
 	Sleep(1000);
 }
 
+void AccountBookManager::operator()()
+{
+	int choice;
+
+	while (1)
+	{
+		MenuManager(1)();
+		while ((choice = cinCheck<int>(3, 5)) == 0)continue;
+		system("cls");
+		switch (choice)
+		{
+		case 1:write(); break;
+		case 2:show(); break;
+		case 3:searchByDate(); break;
+		case 4:delete_(); break;
+		case 5:goto flag; break;
+		default:break;
+		}
+		Pause_and_Cls();
+	}
+flag:
+	system("cls");
+	return;
+}
+
+
 void AccountBookManager::write()
 {
 
@@ -124,16 +150,21 @@ void AccountBookManager::searchByDate()
 	if (isEmpty())return;
 	int Year_Month_Date1[3], Year_Month_Date2[3];
 	string s1, s2;
-	cout << "请输入起始查询日期：\n";
+	cout << "请输入起始查询日期：(年/月/日)\n";
 	while (cin >> s1 && !cinCheck<bool>(4, 0, s1))cout << "格式错误，请重新输入！\n";
-	cout << "请输入结束查询日期：\n";
+	cout << "请输入结束查询日期：(年/月/日)\n";
 	while (cin >> s2 && !cinCheck<bool>(4, 0, s2))cout << "格式错误，请重新输入！\n";
 
 	transform(s1, Year_Month_Date1), transform(s2, Year_Month_Date2);
 	const Account ac1(Year_Month_Date1[0], Year_Month_Date1[1], Year_Month_Date1[2], 0, 0);
 	const Account ac2(Year_Month_Date2[0], Year_Month_Date2[1], Year_Month_Date2[2], 0, 0);
-	multiset<Account>::iterator front;
-	multiset<Account>::iterator back;
+	if (ac2 < ac1)
+	{
+		cout << "结束查询日期早于起始查询日期！查询失败！\n";
+		return;
+	}
+	multiset<Account>::iterator front = accountArray.end();
+	multiset<Account>::iterator back = accountArray.begin();
 	for (multiset<Account>::iterator it = accountArray.begin(); it != accountArray.end(); it++)
 	{
 		if (*it < ac1)continue;
@@ -198,30 +229,6 @@ void AccountBookManager::accountRegister(string &s,double &money,int &choice)
 	ofs.close();
 }
 
-void AccountBookManager::operator()()
-{
-	int choice;
-
-	while (1)
-	{
-		MenuManager(1)();
-		cin >> choice;
-		system("cls");
-		switch (choice)
-		{
-		case 1:write(); break;
-		case 2:show(); break;
-		case 3:searchByDate(); break;
-		case 4:delete_(); break;
-		case 5:goto flag; break;
-		default:break;
-		}
-		Pause_and_Cls();
-	}
-flag:
-	system("cls");
-	return;
-}
 
 void AccountBookManager::delete_()
 {

@@ -88,7 +88,7 @@ void StudyRecorderManager::operator()()
 	while (1)
 	{
 		MenuManager(2)();
-		cin >> choice;
+		while ((choice = cinCheck<int>(3, 4)) == 0)continue;
 		system("cls");
 		switch (choice)
 		{
@@ -119,10 +119,27 @@ void StudyRecorderManager::delete_()
 		i++;
 		cout << i << endl << (*it);
 	}
-	cout << "请问你要删除哪一条学习记录？\n";
-	int num;
-	cin >> num;
-	StudyRecorderArray.erase(StudyRecorderArray.begin() + num - 1);
+
+	cout << "请问你要删除哪一条学习记录？（0取消删除）\n";
+	int num = 0;
+	while (1)
+	{
+		cin >> num;
+		cin.clear();
+		while (cin.get() != '\n')num = -1;
+		if (cin.fail() || num<0 || num>StudyRecorderArray.size())
+		{
+			cout << "请输入0-" << StudyRecorderArray.size() << "之间的整数！\n";
+		}
+		else break;
+	}
+	if (num == 0)
+	{
+		cout << "已经取消删除操作！" << endl;
+		return;
+	}
+	else StudyRecorderArray.erase(StudyRecorderArray.begin() + num - 1);
+
 	ofstream ofs;
 	ofs.open(FILENAME, ios::out);
 	for (vector<StudyRecorder>::iterator it = StudyRecorderArray.begin(); it != StudyRecorderArray.end(); it++)

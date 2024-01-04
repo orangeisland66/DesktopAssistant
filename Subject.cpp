@@ -152,13 +152,10 @@ void Subject::outtextInfo()
 	string s1, s2, s3;
 	s1 = "课程名：" + subjectName;
 	s2 = "任课老师：" + teacher;
-	s3 = "上课时间：" + startHourAndMinute + "~" + endHourAndMinute;
+	s3 = "上课时间：" + string_weekday + "  " + startHourAndMinute + "~" + endHourAndMinute;
 	outtextxy(0, 0, s1.c_str());
 	outtextxy(0, 40, s2.c_str());
 	outtextxy(0, 80, s3.c_str());
-	//outtextxy(0, 120, subjectName.c_str());
-	//outtextxy(0, 160, subjectName.c_str());
-	//outtextxy(0, 200, subjectName.c_str());
 	settextcolor(WHITE);
 	settextstyle(17, 0, ("微软雅黑"));
 }

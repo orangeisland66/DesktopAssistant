@@ -30,6 +30,8 @@ T cinCheck(int mode,int range=0,string s=" ")
 		{
 			if (choice <= 0 || choice > range)
 			{
+				cin.clear();
+				while (cin.get() != '\n')continue;
 				cout << "请输入1~" << range << "之间的整数！" << endl;
 				continue;
 			}
@@ -42,11 +44,17 @@ T cinCheck(int mode,int range=0,string s=" ")
 			cout << "输入格式错误，正在返回上一界面！\n";
 			Sleep(1000);
 		}
-		if (cin.fail() && mode == 3)
+		else if (cin.fail() && mode == 3)
 		{
 			cin.clear();
 			while (cin.get() != '\n')continue;
 			cout << "请输入1~" << range << "之间的整数！" << endl;
+		}
+		else
+		{
+			cin.clear();
+			while (cin.get() != '\n')choice=0;
+			if (choice == 0)cout << "请输入1~" << range << "之间的整数！" << endl;
 		}
 		return choice;
 	}
@@ -71,7 +79,8 @@ T cinCheck(int mode,int range=0,string s=" ")
 			if (e == '/')num++;
 			else if (e < '0' || e>'9')return false;
 		}
-		if (num == 2)return true;
+		if (num == 2)
+			return true;
 		return false;
 	}
 	if (mode == 5)

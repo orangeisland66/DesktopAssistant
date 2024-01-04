@@ -290,7 +290,8 @@ int DailyRecorderManager::recordersSelectAndRecordersDeletePage(int mode)
 
 int DailyRecorderManager::explanationPage()
 {
-	MessageBox(MyWindow::getHWND(), "如需添加图片，请将图片（png格式）手动放入\n./DailyRecorderImages/ImagesToSelect/文件夹下，\n宽高均400像素以内，程序会自动识别的。", "提示", MB_OK);
+	MessageBox(MyWindow::getHWND(), 
+		"如需添加图片，请将图片（.jpg格式）手动放入\n./DailyRecorderImages/ImagesToSelect/文件夹下，\n宽高均400像素以内，程序会自动识别的。", "提示", MB_OK);
 	return 0;
 }
 

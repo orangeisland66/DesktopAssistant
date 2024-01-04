@@ -81,7 +81,7 @@ void PasswordRecorderManager::operator()()
 	{
 		if (!is_Init)init();
 		MenuManager(4)();
-		cin >> choice;
+		while ((choice = cinCheck<int>(3, 6)) == 0)continue;
 		system("cls");
 		switch (choice)
 		{
@@ -137,18 +137,23 @@ void PasswordRecorderManager::init()
 bool PasswordRecorderManager::checkPassword()
 {
 	string Password_to_Input;
-	cout << "请输入密码以访问：\n";
-	cin >> Password_to_Input;
-	while (Password_to_Input != to_Visit_Password)
+	cout << "请输入密码以访问：(0取消访问）\n";
+	while(1)
 	{
-		cout << "密码输入错误，请重新输入：\n";
+
+		bool flag = true;;
 		cin >> Password_to_Input;
-		if (Password_to_Input == "0")
+		cin.clear();
+		while (cin.get() != '\n')flag = false;
+		if (!flag)Password_to_Input.clear();
+		else if (Password_to_Input == "0")
 		{
 			cout << "已经取消访问，即将退出至密码记录器主页……\n";
 			Sleep(1000);
 			return false;
 		}
+		else if (Password_to_Input == to_Visit_Password)break;
+		cout << "密码错误！请重新输入！\n";
 	}
 	system("cls");
 	cout << "密码正确！正在加载已保存的密码……\n";
@@ -248,6 +253,7 @@ void PasswordRecorderManager::delete_()
 	cout << "正在删除账号密码……\n";
 	cout << "请输入需要删除的账号：" << endl;
 	vector<pair<int, pair<string, string>>>Password_to_Delete = find();
+
 	int num = 0;
 	if (Password_to_Delete.empty())return;
 	if (Password_to_Delete.size() == 1)
@@ -256,12 +262,15 @@ void PasswordRecorderManager::delete_()
 	}
 	else
 	{
-		cout << "请问你要删除哪一个？\n";
-		cin >> num;
-		while (num < 0 || num > Password_to_Delete.size())
+		cout << "请问你要删除哪一个？（按0取消删除）\n";
+		while (1)
 		{
-			cout << "请输入1-" << Password_to_Delete.size() << "之间的整数！\n";
 			cin >> num;
+			cin.clear();
+			while (cin.get() != '\n')num = -1;
+			if(cin.fail() || num < 0 || num > Password_to_Delete.size())
+				cout << "请输入0-" << Password_to_Delete.size() << "之间的整数！\n";
+			else break;
 		}
 		if (num == 0)
 		{
@@ -289,6 +298,7 @@ void PasswordRecorderManager::comfirmToDelete(vector<pair<int, pair<string, stri
 		return;
 	}
 	PasswordRecorderArray.erase(PasswordRecorderArray.begin() + Password_to_Delete[num].first);
+
 	ofstream ofs;
 	ofs.open(FILENAME, ios::out);
 	for (vector<pair<string, string>>::iterator it = PasswordRecorderArray.begin(); it != PasswordRecorderArray.end(); it++)
@@ -305,8 +315,10 @@ void PasswordRecorderManager::reset()
 	string Password_to_Input;
 	cout << "请输入原密码：\n";
 	cin >> Password_to_Input;
-	while (Password_to_Input != to_Visit_Password)
+	while (Password_to_Input != to_Visit_Password||cin.get()!='\n')
 	{
+		cin.clear();
+		while (cin.get() != '\n')continue;
 		cout << "密码输入错误，请重新输入：\n";
 		cin >> Password_to_Input;
 		if (Password_to_Input == "0")
