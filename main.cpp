@@ -17,7 +17,6 @@ int main()
 		while ((choice = cinCheck<int>(3, 6)) == 0)continue;
 		switch (choice)
 		{
-			
 		case 1:AccountBookManager()(); break;
 		case 2:PasswordRecorderManager()();break; 
 		case 3:StudyRecorderManager()(); break;

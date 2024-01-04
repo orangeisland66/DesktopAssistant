@@ -1,7 +1,4 @@
-#include<iostream>
 #include "MenuManager.h"
-//#include<windows.h>
-using namespace std;
 
 MenuManager::MenuManager(int mode):mode(mode){}
 

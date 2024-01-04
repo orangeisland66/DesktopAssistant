@@ -1,5 +1,6 @@
 #pragma once
 #include"StudyRecorder.h"
+
 class StudyRecorderManager
 {
 public:

@@ -1,6 +1,6 @@
 #include"AccountBookManager.h"
+
 #define FILENAME "./txts/AccountBook.txt"
-using namespace std;
 
 void myPrintIn(const Account& ac)
 {
@@ -13,7 +13,6 @@ void myPrintOut(const Account& ac)
 }
 
 AccountBookManager::AccountBookManager():inSum(0),outSum(0){
-	//closegraph();
 	system("cls");
 	cout << "正在初始化……\n";
 	Sleep(1000);
@@ -201,7 +200,27 @@ void AccountBookManager::accountRegister(string &s,double &money,int &choice)
 
 void AccountBookManager::operator()()
 {
-	Manager();
+	int choice;
+
+	while (1)
+	{
+		MenuManager(1)();
+		cin >> choice;
+		system("cls");
+		switch (choice)
+		{
+		case 1:write(); break;
+		case 2:show(); break;
+		case 3:searchByDate(); break;
+		case 4:delete_(); break;
+		case 5:goto flag; break;
+		default:break;
+		}
+		Pause_and_Cls();
+	}
+flag:
+	system("cls");
+	return;
 }
 
 void AccountBookManager::delete_()
@@ -254,30 +273,4 @@ bool AccountBookManager::isEmpty()
 		return true;
 	}
 	return false;
-}
-
-void AccountBookManager::Manager()
-{
-	int choice;
-
-	while (1)
-	{
-		MenuManager(1)();
-		cin >> choice;
-		system("cls");
-		switch (choice)
-		{
-		case 1:write(); break;
-		case 2:show(); break;
-		case 3:searchByDate(); break;
-		case 4:delete_(); break;
-		case 5:goto flag; break;
-		default:break;
-		}
-		Pause_and_Cls();
-	}
-flag:
-	system("cls");
-	//MenuManager(0)();
-	return;
 }

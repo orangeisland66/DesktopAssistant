@@ -79,34 +79,6 @@ void Subject::setHourAndMinute()
 	if (endSection == 11) { endHour = 19; endMinute = 15; endHourAndMinute = "19:15"; }
 	if (endSection == 12) { endHour = 20; endMinute = 5; endHourAndMinute = "20:05"; }
 	if (endSection == 13) { endHour = 20; endMinute = 55; endHourAndMinute = "20:55"; }
-	//cout << startSection << endSection << endl;
-	//cout << time;
-	//int size = time.size();
-	//int firstColon=-1, secondColon=-1;
-	//int hyphen;
-	//for (int i = 0; i < size; i++)
-	//{
-	//	if (time[i] == ':')firstColon = i;
-	//	if (firstColon != -1 && time[i] == ':')secondColon = i;
-	//	if (time[i] == '-')hyphen = i;
-	//}
-	//stringstream ss;
-	//ss << time.substr(0, firstColon);
-	//ss >> startHour;
-	//ss.str("");//清空buffer
-	//ss.clear();//初始化流状态
-	//ss << time.substr(firstColon + 1, hyphen-firstColon-1);
-	//ss >> startMinute;
-	//ss.str("");//清空buffer
-	//ss.clear();//初始化流状态
-	//ss << time.substr(hyphen + 1, secondColon - hyphen - 1);
-	//ss >> endHour;
-	//ss.str("");//清空buffer
-	//ss.clear();//初始化流状态
-	//ss << time.substr(secondColon, size - secondColon);
-	//ss >> endMinute;
-	//cout << startHour << " " << startMinute << " " << endHour << " " << endMinute<<endl;
-	//cout << string_weekday[0] << string_weekday[1] << string_weekday[2] << string_weekday[3] << string_weekday[4]<<string_weekday[5] << endl;
 }
 
 void Subject::setweekday()

@@ -1,7 +1,8 @@
 #include"StudyRecorderManager.h"
 #include"header.h"
+
 #define FILENAME "./txts/StudyRecorder.txt"
-using namespace std;
+
 StudyRecorderManager::StudyRecorderManager()
 {
 	system("cls");
@@ -60,7 +61,6 @@ void StudyRecorderManager::write()
 			stringstream ss;
 			ss << temp;
 			ss >> Year_Month_Day[count++];
-			//cout << YearorMonthorDate[count - 1];
 		}
 	}
 	temp = StudyTime.substr(pos);
@@ -102,7 +102,6 @@ void StudyRecorderManager::operator()()
 	}
 flag:
 	system("cls");
-	//MenuManager(0)();
 	return;
 }
 

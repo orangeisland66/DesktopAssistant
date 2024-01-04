@@ -1,5 +1,7 @@
 #include "MemoManager.h"
+
 #define FILENAME "./txts/Memo.txt"
+
 MemoManager::MemoManager()
 	:menu(new IMAGE(640, 793)), schedule(new IMAGE(348, 640))
 {

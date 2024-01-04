@@ -1,7 +1,6 @@
 #pragma once
 #include"header.h"
 #include"MenuManager.h"
-using namespace std;
 
 class MyPasswordRecorderArrayPrint
 {

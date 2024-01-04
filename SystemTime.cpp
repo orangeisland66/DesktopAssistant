@@ -3,11 +3,9 @@
 void SystemTime::getSystemTime()
 {
     time_t t = time(nullptr);
-    localtime_s(tm_info, &t);
-    // 将时间格式化为字符串
+    localtime_s(tm_info, &t);// 将时间格式化为字符串
     strftime(cYear_Month_Date, sizeof(cYear_Month_Date), "%Y年%m月%d日", tm_info);
     strftime(cHour_Mniute_Second, sizeof(cHour_Mniute_Second), "%H:%M:%S", tm_info);
-    //cout << cYear_Month_Date << endl << cHour_Mniute_Second << endl;
     char y[10], m[10], d[10], w[10], H[10], M[10], S[10];
     strftime(y, sizeof(y), "%Y", tm_info);
     strftime(m, sizeof(m), "%m", tm_info);

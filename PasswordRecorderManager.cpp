@@ -161,7 +161,6 @@ bool PasswordRecorderManager::checkPassword()
 void PasswordRecorderManager::write()
 {
 	cout << "ÕýÔÚ¼ÇÂ¼ÕËºÅÃÜÂë£º\n";
-	//checkPassword();
 	string AccountName, Password;
 	cout << "ÇëÊäÈëÕËºÅÃû³Æ£º\n";
 	cin >> AccountName;
@@ -207,7 +206,6 @@ vector<pair<int, pair<string, string>>> PasswordRecorderManager::find()
 	if (if_Find_Array.empty())
 	{
 		cout << "Î´ÕÒµ½¸ÃÕËºÅ£¡\n";//ÈýÃëºó·µ»ØÃÜÂë¼ÇÂ¼Æ÷Ê×Ò³¡­¡­\n";
-		//Sleep(3000);
 		return if_Find_Array;
 	}
 
@@ -318,6 +316,7 @@ void PasswordRecorderManager::reset()
 			return;
 		}
 	}
+
 	string Password, Password_to_Confirm;
 	int cnt = 0;
 	bool flag = true;

@@ -1,4 +1,5 @@
 #include "DailyRecorder.h"
+
 DailyRecorder::DailyRecorder(string title, string content,string address, string time):
 	title(title),content(content),address(address),time(time)
 {
@@ -18,7 +19,6 @@ void DailyRecorder::show()
 	settextstyle(30, 0, ("Œ¢»Ì—≈∫⁄"));
 	outtextxy(30, 20, time.c_str());
 	settextstyle(22, 0, ("–– È"));
-	//cout << this->image->getwidth() << endl;
 	if (this->image->getwidth() < 400)
 	{
 		tx2 = this->image->getwidth() + 20;
@@ -33,6 +33,7 @@ void DailyRecorder::show()
 		setfillcolor(WHITE);
 		fillrectangle(100, 500, 540, 630);
 	}
+
 	string temp1 = content;
 	string temp2;
 	int size = (int)content.size(), cnt = 0;
@@ -56,9 +57,7 @@ void DailyRecorder::show()
 	settextstyle(18, 0, ("Œ¢»Ì—≈∫⁄"));
 }
 
-DailyRecorder::~DailyRecorder()
-{
-}
+DailyRecorder::~DailyRecorder(){}
 
 ofstream& operator<<(ofstream& ofs, DailyRecorder da)
 {

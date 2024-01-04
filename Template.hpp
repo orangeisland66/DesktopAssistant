@@ -2,11 +2,13 @@
 #include<iostream>
 #include<string>
 using namespace std;
+
 template<typename T>
 void MyPrint(const T& to_print)
 {
 	cout << to_print;
 }
+
 template<typename T>
 class MyCompare
 {
@@ -16,6 +18,7 @@ public:
 		return t1 < t2;
 	}
 };
+
 template<typename T>
 T cinCheck(int mode,int range=0,string s=" ")
 {

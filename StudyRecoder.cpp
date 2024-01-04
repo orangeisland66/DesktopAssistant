@@ -1,6 +1,5 @@
 #include"StudyRecorder.h"
 
-using namespace std;
 StudyRecorder::StudyRecorder(int year,int month,int day,string place,string content):
 	year(year),month(month),day(day),place(place),content(content){}
 

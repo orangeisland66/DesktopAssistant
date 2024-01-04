@@ -276,3 +276,34 @@ int main(int argc, char* argv[])
 	//seconds = difftime(mktime(&t2), mktime(&t1));//转换结构体为time_t,利用difftime,计算时间差  
 
 	//cout << "剩余天数: " << seconds / 86400 << endl;//最后输出时间,因为一天有86400秒(60*60*24)  
+
+
+
+		//cout << startSection << endSection << endl;
+	//cout << time;
+	//int size = time.size();
+	//int firstColon=-1, secondColon=-1;
+	//int hyphen;
+	//for (int i = 0; i < size; i++)
+	//{
+	//	if (time[i] == ':')firstColon = i;
+	//	if (firstColon != -1 && time[i] == ':')secondColon = i;
+	//	if (time[i] == '-')hyphen = i;
+	//}
+	//stringstream ss;
+	//ss << time.substr(0, firstColon);
+	//ss >> startHour;
+	//ss.str("");//清空buffer
+	//ss.clear();//初始化流状态
+	//ss << time.substr(firstColon + 1, hyphen-firstColon-1);
+	//ss >> startMinute;
+	//ss.str("");//清空buffer
+	//ss.clear();//初始化流状态
+	//ss << time.substr(hyphen + 1, secondColon - hyphen - 1);
+	//ss >> endHour;
+	//ss.str("");//清空buffer
+	//ss.clear();//初始化流状态
+	//ss << time.substr(secondColon, size - secondColon);
+	//ss >> endMinute;
+	//cout << startHour << " " << startMinute << " " << endHour << " " << endMinute<<endl;
+	//cout << string_weekday[0] << string_weekday[1] << string_weekday[2] << string_weekday[3] << string_weekday[4]<<string_weekday[5] << endl;

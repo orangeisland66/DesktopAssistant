@@ -1,7 +1,7 @@
 #pragma once
 #include"header.h"
 #include"PushButton.h"
-//class MyC
+
 class Subject
 {
 public:

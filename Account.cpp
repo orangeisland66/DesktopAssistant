@@ -1,5 +1,3 @@
-#include<iostream>
-#include<fstream>
 #include"Account.h"
 
 Account::Account(int year, int month, int day,double money, bool IO):

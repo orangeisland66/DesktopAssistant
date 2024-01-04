@@ -13,12 +13,10 @@ public:
 	void searchByDate();
 	void accountRegister(string& s,double& money,int& choice);
 	void operator()();
-	void Manager();
 	void transform(string& YMD, int* Y_M_D);
 	void delete_();
 	void doubleJudge();
 	bool isEmpty();
-	//void MyPrint(const Account&);
 
 private:
 	multiset<Account,MyCompare<Account>>accountArray;
